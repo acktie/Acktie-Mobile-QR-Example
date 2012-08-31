@@ -1,4 +1,5 @@
 // Example for the Acktie Mobile QR Code reader (for both iOS and Android)
+
 var qrreader = undefined;
 var qrCodeWindow = undefined;
 var qrCodeView = undefined;
@@ -18,7 +19,7 @@ var self = Ti.UI.createWindow({backgroundColor: 'white'});
  * NOTE: Android does not currently support reading from the Image Gallery
  */
 var qrFromAlbumButton = Titanium.UI.createButton({
-	title : 'QR Code from Camera (Album)',
+	title : 'QR Code from Album',
 	height : 40,
 	width : '100%',
 	top : 10
@@ -211,8 +212,10 @@ qrFromManualContCameraButton.addEventListener('click', function() {
 self.add(qrFromManualContCameraButton);
 
 function success(data) {
-	Titanium.Media.vibrate();
-	alert(data.data);
+	if(data != undefined && data.data != undefined) {
+		Titanium.Media.vibrate();
+		alert('data: ' + data.data);
+	}
 };
 
 function cancel() {
