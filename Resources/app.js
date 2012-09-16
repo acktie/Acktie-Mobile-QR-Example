@@ -4,6 +4,15 @@ var qrreader = undefined;
 var qrCodeWindow = undefined;
 var qrCodeView = undefined;
 
+var self = Ti.UI.createWindow({
+	backgroundColor : 'white',
+	title: "Acktie Mobile QR",
+});
+
+var navGroup = Ti.UI.iPhone.createNavigationGroup({
+	window:self
+});
+
 // Depending on the platform, load the appropriate qr module
 if (Ti.Platform.osname === 'iphone' || Ti.Platform.osname === 'ipad') {
 	qrreader = require('com.acktie.mobile.ios.qr');
@@ -11,23 +20,21 @@ if (Ti.Platform.osname === 'iphone' || Ti.Platform.osname === 'ipad') {
 	qrreader = require('com.acktie.mobile.android.qr');
 }
 
-
-var self = Ti.UI.createWindow({backgroundColor: 'white'});
-
 /**
  * Read QR from a Photo Album
  * NOTE: Android does not currently support reading from the Image Gallery
  */
 var qrFromAlbumButton = Titanium.UI.createButton({
 	title : 'QR Code from Album',
-	height : 40,
+	height : '40pd',
 	width : '100%',
-	top : 10
+	top : '10dp'
 });
 
 qrFromAlbumButton.addEventListener('click', function() {
 	if (Ti.Platform.osname === 'iphone' || Ti.Platform.osname === 'ipad') {
 		qrreader.scanQRFromAlbum({
+			view : qrFromAlbumButton, //Only for the iPad
 			success : success,
 			cancel : cancel,
 			error : error,
@@ -39,15 +46,32 @@ qrFromAlbumButton.addEventListener('click', function() {
 
 self.add(qrFromAlbumButton);
 
+// Add Scan button from right nav bar on iPad
+if (Ti.Platform.osname === 'ipad') {
+	var navButton = Titanium.UI.createButton({
+		title : 'Scan from Album'
+	});
+	self.rightNavButton = navButton;
+
+	navButton.addEventListener('click', function() {
+		qrreader.scanQRFromAlbum({
+			navBarButton : navButton, //Only for the iPad
+			success : success,
+			cancel : cancel,
+			error : error,
+		});
+	});
+}
+
 /**
  * Read QR code from the Camera feed.  Once the QR code is read it will
  * stop scanning.
  */
 var qrFromCameraButton = Titanium.UI.createButton({
 	title : 'QR Code from Camera (Sampling)',
-	height : 40,
+	height : '40dp',
 	width : '100%',
-	top : 60
+	top : '60dp'
 });
 qrFromCameraButton.addEventListener('click', function() {
 	var options = {
@@ -84,9 +108,9 @@ self.add(qrFromCameraButton);
  */
 var qrFromCameraContButton = Titanium.UI.createButton({
 	title : 'From Camera (Sampling Continuous)',
-	height : 40,
+	height : '40dp',
 	width : '100%',
-	top : 110
+	top : '110dp'
 });
 qrFromCameraContButton.addEventListener('click', function() {
 	var options = {
@@ -128,9 +152,9 @@ self.add(qrFromCameraContButton);
  */
 var qrFromManualCameraButton = Titanium.UI.createButton({
 	title : 'QR Code from Camera (Manual Capture)',
-	height : 40,
+	height : '40dp',
 	width : '100%',
-	top : 160
+	top : '160dp'
 });
 qrFromManualCameraButton.addEventListener('click', function() {
 	var options = {
@@ -171,9 +195,9 @@ self.add(qrFromManualCameraButton);
  */
 var qrFromManualContCameraButton = Titanium.UI.createButton({
 	title : 'Camera from Manual Capture (Continuous)',
-	height : 40,
+	height : '40dp',
 	width : '100%',
-	top : 210
+	top : '210dp'
 });
 qrFromManualContCameraButton.addEventListener('click', function() {
 	var options = {
@@ -212,7 +236,7 @@ qrFromManualContCameraButton.addEventListener('click', function() {
 self.add(qrFromManualContCameraButton);
 
 function success(data) {
-	if(data != undefined && data.data != undefined) {
+	if (data != undefined && data.data != undefined) {
 		Titanium.Media.vibrate();
 		alert('data: ' + data.data);
 	}
@@ -337,4 +361,6 @@ if (Ti.Platform.osname === 'android') {
 	});
 }
 
-self.open();
+var main = Ti.UI.createWindow();
+main.add(navGroup);
+main.open();
