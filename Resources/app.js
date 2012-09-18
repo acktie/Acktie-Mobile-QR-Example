@@ -9,10 +9,6 @@ var self = Ti.UI.createWindow({
 	title: "Acktie Mobile QR",
 });
 
-var navGroup = Ti.UI.iPhone.createNavigationGroup({
-	window:self
-});
-
 // Depending on the platform, load the appropriate qr module
 if (Ti.Platform.osname === 'iphone' || Ti.Platform.osname === 'ipad') {
 	qrreader = require('com.acktie.mobile.ios.qr');
@@ -26,7 +22,7 @@ if (Ti.Platform.osname === 'iphone' || Ti.Platform.osname === 'ipad') {
  */
 var qrFromAlbumButton = Titanium.UI.createButton({
 	title : 'QR Code from Album',
-	height : '40pd',
+	height : '40dp',
 	width : '100%',
 	top : '10dp'
 });
@@ -361,6 +357,17 @@ if (Ti.Platform.osname === 'android') {
 	});
 }
 
-var main = Ti.UI.createWindow();
-main.add(navGroup);
-main.open();
+if(Ti.Platform.osname === 'android')
+{
+	self.open();
+}
+else
+{
+	var navGroup = Ti.UI.iPhone.createNavigationGroup({
+		window:self
+	});
+
+	var main = Ti.UI.createWindow();
+	main.add(navGroup);
+	main.open();
+}
