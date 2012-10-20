@@ -7,7 +7,7 @@
         <target device="android">true</target>
         <target device="blackberry">false</target>
     </deployment-targets>
-    <sdk-version>2.1.1.GA</sdk-version>
+    <sdk-version>2.1.3.GA</sdk-version>
     <id>com.acktie.mobile.qr.example</id>
     <name>AcktieMobileQRExample</name>
     <version>1.0</version>
@@ -46,7 +46,7 @@
         <theme>default</theme>
     </mobileweb>
     <modules>
-        <module platform="android" version="1.1">com.acktie.mobile.android.qr</module>
-        <module platform="iphone" version="1.6">com.acktie.mobile.ios.qr</module>
+        <module platform="android" version="1.2">com.acktie.mobile.android.qr</module>
+        <module platform="iphone" version="1.7">com.acktie.mobile.ios.qr</module>
     </modules>
 </ti:app>
