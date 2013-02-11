@@ -80,6 +80,7 @@ qrFromCameraButton.addEventListener('click', function() {
 		// **
 
 		// ** Used by both iOS and Android
+		useFrontCamera: true,
 		overlay : {
 			color : "blue",
 			layout : "center",
@@ -169,6 +170,7 @@ qrFromManualCameraButton.addEventListener('click', function() {
 		// **
 
 		// ** Used by both iOS and Android
+		useFrontCamera: true,
 		scanButtonName : 'Scan Code!',
 		success : success,
 		cancel : cancel,
