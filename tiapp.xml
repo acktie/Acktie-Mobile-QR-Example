@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ti:app xmlns:ti="http://ti.appcelerator.org">
     <deployment-targets>
+        <target device="tizen">false</target>
         <target device="mobileweb">false</target>
         <target device="iphone">true</target>
         <target device="ipad">true</target>
         <target device="android">true</target>
         <target device="blackberry">false</target>
     </deployment-targets>
-    <sdk-version>3.0.0.GA</sdk-version>
+    <sdk-version>3.0.2.GA</sdk-version>
     <id>com.acktie.mobile.qr.example</id>
     <name>AcktieMobileQRExample</name>
     <version>1.0</version>
@@ -51,7 +52,6 @@
     </mobileweb>
     <modules>
         <module platform="iphone">com.acktie.mobile.ios.qr</module>
-        <module platform="iphone">ti.storekit</module>
         <module platform="android">com.acktie.mobile.android.qr</module>
     </modules>
 </ti:app>

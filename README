@@ -2,6 +2,8 @@ Acktie Mobile QR Module Example (for both iOS and Android)
 
 The example shows various ways to use the QR module.  The code is intented to get you started in using the module but may need to be refactored for your app.
 
+NOTE: This example is for 2.0 or higher for iOS.  Use the previous version for older module support.
+
 Feel free to offer suggestions.
 
 Thanks,
